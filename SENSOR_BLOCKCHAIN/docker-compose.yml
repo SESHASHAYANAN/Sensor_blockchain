@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  blockchain:
+    build: ./blockchain/core
+    volumes:
+      - ./blockchain/config:/config
+      - ./data/ledger:/ledger
+    ports:
+      - "8545:8545"
+    environment:
+      - NODE_ENV=production
+      - CONFIG_PATH=/config/genesis.json
+
+  receiver_service:
+    build: ./apps/receiver_service
+    volumes:
+      - ./data/logs:/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - blockchain
+
+  mobile_app:
+    build: ./apps/mobile_app
+    depends_on:
+      - blockchain
+
+# Add more services as needed

@@ -1,0 +1,736 @@
+.vitals-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.vital-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    flex: 1;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.vital-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.vital-label {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.vital-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.unit {
+    font-size: 1rem;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+:root {
+    /* Premium Clinical Palette — 2026 Telemetry Standard */
+    --clinical-red: #FF5252;
+    /* Crisis / Critical High-Priority */
+    --clinical-yellow: #FBBF24;
+    /* Warning / Medium Priority */
+    --clinical-green: #10B981;
+    /* Stable / Normal */
+    --clinical-blue: #6366F1;
+    /* Emergency Link / Local Link */
+    --clinical-cyan: #22D3EE;
+    /* Technical / Data / NRZ */
+    --clinical-metadata: #94A3B8;
+    /* Secondary / Units */
+    --clinical-bg: #0B0F19;
+    /* Deep space-navy background */
+    --clinical-surface: rgba(15, 23, 42, 0.75);
+    --clinical-border: rgba(99, 102, 241, 0.1);
+    --clinical-glow-indigo: rgba(99, 102, 241, 0.2);
+    --clinical-glow-emerald: rgba(16, 185, 129, 0.15);
+}
+
+.vitals-dashboard {
+    padding: 24px;
+    background: var(--clinical-bg);
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(34, 211, 238, 0.03) 0%, transparent 40%);
+    min-height: auto;
+    color: #f1f5f9;
+    font-family: 'Inter', -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Bento Grid Layout */
+.vitals-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    gap: 16px;
+    width: 100%;
+}
+
+.bento-tile {
+    background: var(--clinical-surface);
+    border: 1px solid var(--clinical-border);
+    border-radius: 20px;
+    padding: 20px;
+    backdrop-filter: blur(20px) saturate(180%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+}
+
+.bento-tile:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 12px 40px -5px rgba(0, 0, 0, 0.4);
+    background: rgba(15, 23, 42, 0.85);
+}
+
+/* Specific Tile Sizing - Primary Vitals Row */
+.tile-hero {
+    grid-column: span 6;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Secondary Metadata Row */
+.tile-patient-details {
+    grid-column: span 4;
+}
+
+.tile-link {
+    grid-column: span 4;
+}
+
+.tile-status {
+    grid-column: span 4;
+}
+
+.tile-link,
+.tile-status {
+    min-height: 120px;
+}
+
+.tile-status .status-display {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+}
+
+.patient-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.patient-meta .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
+}
+
+.patient-meta .meta-label {
+    color: var(--clinical-metadata);
+    font-size: 0.85rem;
+}
+
+.patient-meta .meta-val {
+    color: #fff;
+    font-weight: 600;
+}
+
+.tile-status .status-text {
+    font-size: 0.85rem;
+}
+
+/* Alarm States - IEC 60601-1-8 + ErroMed */
+.bento-tile.critical {
+    border-color: var(--clinical-red);
+    box-shadow: 0 0 20px rgba(255, 82, 82, 0.2);
+}
+
+.bento-tile.warning {
+    border-color: var(--clinical-yellow);
+    box-shadow: 0 0 20px rgba(255, 215, 64, 0.15);
+}
+
+.bento-tile.stable {
+    border-color: var(--clinical-green);
+    box-shadow: 0 0 10px rgba(105, 240, 174, 0.1);
+}
+
+.bento-tile.technical {
+    border-color: var(--clinical-blue);
+}
+
+/* Tile Internal Structure */
+.tile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.tile-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--clinical-metadata);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sqi-indicator,
+.threshold-indicator {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--clinical-metadata);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.tile-main {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.main-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+}
+
+.main-unit {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--clinical-metadata);
+}
+
+/* Icons */
+.heart-icon,
+.spo2-icon {
+    font-size: 1.5rem;
+    margin-right: 4px;
+}
+
+.heart-icon {
+    color: var(--clinical-red);
+}
+
+.spo2-icon {
+    color: var(--clinical-cyan);
+}
+
+/* Status Text */
+.status-display {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.status-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.critical-text {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--clinical-red);
+    margin-top: 8px;
+}
+
+/* Waveforms */
+.waveform-container {
+    height: 50px;
+    width: 100%;
+    margin-top: auto;
+}
+
+/* Patient Info & Sync */
+.patient-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.patient-id {
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.sync-status {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--clinical-green);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sync-status.alert {
+    color: var(--clinical-yellow);
+}
+
+.sync-timer {
+    color: #64748b;
+}
+
+/* Controls */
+.tech-toggle {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--clinical-border);
+    color: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tech-toggle.active {
+    background: var(--clinical-cyan);
+    color: #000;
+    border-color: var(--clinical-cyan);
+}
+
+
+/* Sparkline */
+.sparkline-container {
+    height: 50px;
+    width: 100%;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
+.sparkline {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Status Header & Toggle */
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.status-badge.stable {
+    background: rgba(46, 213, 115, 0.2);
+    color: #2ed573;
+}
+
+.status-badge.critical {
+    background: rgba(255, 71, 87, 0.2);
+    color: #ff4757;
+    animation: flash 2s infinite;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #555;
+    border-radius: 20px;
+    transition: .4s;
+    display: inline-block;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--clinical-green);
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+.label-text {
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+/* Heart Rate Animation - Refined Lub-Dub */
+.heart-icon.lub-dub {
+    color: var(--clinical-red);
+    font-size: 2rem;
+    animation: lub-dub 1s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    display: inline-block;
+}
+
+@keyframes lub-dub {
+    0% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.3);
+    }
+
+    /* Atrial */
+    30% {
+        transform: scale(1.1);
+    }
+
+    45% {
+        transform: scale(1.5);
+    }
+
+    /* Ventricular */
+    70% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* SpO2 Breathing Animation */
+.spo2-icon.breathing {
+    color: var(--clinical-green);
+    font-size: 2rem;
+    animation: breathing 4s ease-in-out infinite;
+    display: inline-block;
+    filter: drop-shadow(0 0 5px rgba(52, 211, 153, 0.4));
+}
+
+@keyframes breathing {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+        filter: drop-shadow(0 0 5px rgba(52, 211, 153, 0.4));
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+        filter: drop-shadow(0 0 15px rgba(52, 211, 153, 0.8));
+    }
+}
+
+/* Critical State - High Contrast & Flashing Border */
+.vitals-dashboard.critical-active {
+    outline: 8px solid #FF5252;
+    outline-offset: -8px;
+    animation: critical-border-pulse 1s infinite alternate;
+}
+
+@keyframes critical-border-pulse {
+    from {
+        outline-color: #FF5252;
+    }
+
+    to {
+        outline-color: #A61414;
+    }
+}
+
+/* Shake effect removed — critical alerts use border pulse + color only */
+
+.warning-icon-large {
+    font-size: 2.5rem;
+    margin: 0 20px;
+    color: #fff;
+    animation: blink-anim 0.5s step-end infinite;
+}
+
+.warning-icon-small {
+    font-size: 1.2rem;
+    color: var(--clinical-red);
+    animation: blink-anim 0.5s step-end infinite;
+}
+
+.snr-small {
+    font-size: 0.6rem;
+    color: #64748b;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.fhir-status {
+    color: var(--clinical-blue);
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* Alerts */
+.vital-card.alert {
+    border-color: #ff4757;
+    background: rgba(255, 71, 87, 0.1);
+    animation: flash 2s infinite;
+}
+
+.vital-card.alert .vital-value,
+.vital-card.alert .unit,
+.vital-card.alert .vital-label {
+    color: #ff4757;
+}
+
+@keyframes flash {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(255, 71, 87, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(255, 71, 87, 0.8), inset 0 0 15px rgba(255, 71, 87, 0.4);
+    }
+}
+
+.warning-text {
+    color: #ffa502;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* --- GOLD Selector --- */
+.gold-selector {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    padding: 2px 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+.gold-selector option {
+    background: #1e293b;
+    color: #fff;
+}
+
+.blink {
+    animation: blink-anim 0.5s step-end infinite;
+}
+
+@keyframes blink-anim {
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.status-badge.critical.blink {
+    background: #ff0000;
+    color: #fff;
+    box-shadow: 0 0 15px #ff0000;
+}
+
+/* ===== NRZ Decode Panel (Always Visible) ===== */
+.nrz-decode-panel {
+    grid-column: span 12;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
+    border: 1px solid var(--clinical-border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    backdrop-filter: blur(12px);
+    min-height: 280px;
+}
+
+.nrz-decode-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.nrz-decode-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--clinical-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nrz-decode-title::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--clinical-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--clinical-cyan);
+    animation: nrz-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes nrz-pulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        box-shadow: 0 0 4px var(--clinical-cyan);
+    }
+
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 12px var(--clinical-cyan);
+    }
+}
+
+.nrz-decode-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--clinical-green);
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.25);
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+}
+
+.nrz-decoded-readout {
+    display: flex;
+    gap: 24px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+}
+
+.decoded-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    min-width: 120px;
+    transition: border-color 0.3s ease;
+}
+
+.decoded-field:hover {
+    border-color: var(--clinical-cyan);
+}
+
+.decoded-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--clinical-metadata);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.decoded-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--clinical-cyan);
+    font-variant-numeric: tabular-nums;
+}
+
+.decoded-value.hr-val {
+    color: var(--clinical-red);
+}
+
+.decoded-value.spo2-val {
+    color: var(--clinical-green);
+}
+
+.decoded-value.protocol-val {
+    color: var(--clinical-blue);
+    font-size: 0.85rem;
+}
+
+.nrz-extra-detail {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.extra-field {
+    font-size: 0.65rem;
+    color: var(--clinical-metadata);
+    font-family: 'Courier New', Courier, monospace;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px 10px;
+    border-radius: 6px;
+}

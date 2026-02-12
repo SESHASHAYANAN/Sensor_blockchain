@@ -1,0 +1,45 @@
+:root {
+  --clinical-bg: #0B0F19;
+  --clinical-primary: #6366F1;
+  --clinical-accent: #22D3EE;
+  --clinical-text: #F1F5F9;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--clinical-bg);
+  color: var(--clinical-text);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: var(--clinical-primary);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--clinical-accent);
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  max-width: 480px;
+  width: 100%;
+  padding: 32px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}

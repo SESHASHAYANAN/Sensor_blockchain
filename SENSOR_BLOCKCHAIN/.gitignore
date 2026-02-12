@@ -1,0 +1,11 @@
+# Global ignores
+node_modules/
+.env
+*.log
+data/logs/
+data/ledger/
+.DS_Store
+*.pyc
+__pycache__/
+build/
+dist/

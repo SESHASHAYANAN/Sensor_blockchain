@@ -1,0 +1,142 @@
+body {
+  margin: 0;
+  background-color: var(--clinical-bg);
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.centered {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background: var(--clinical-surface);
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid var(--clinical-border);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  max-width: 480px;
+  width: 100%;
+}
+
+.auth-card h2 {
+  margin-top: 0;
+  color: var(--clinical-muted);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--clinical-muted);
+}
+
+.auth-form input {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  background-color: var(--clinical-primary);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #4f46e5;
+  transform: translateY(-1px);
+}
+
+.link-button {
+  background: transparent;
+  color: var(--clinical-accent);
+  margin-top: 8px;
+  border: 1px solid rgba(34, 211, 238, 0.2);
+}
+
+.info-text {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--clinical-accent);
+}
+
+.switch-text {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+/* Dashboard */
+
+.dashboard {
+  padding: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.card-section {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  margin-bottom: 16px;
+}
+
+.metrics {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.metric-card {
+  flex: 1 1 160px;
+}
+
+.metric-value {
+  font-size: 24px;
+  margin: 4px 0;
+}
+
+.metric-caption {
+  font-size: 12px;
+  color: #6b7280;
+}
