@@ -1,0 +1,147 @@
+[
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor",
+    "signature": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "patientId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heartRate",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "spO2",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "timestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "HealthDataAdded",
+    "type": "event",
+    "signature": "0x7c34189f1185942d4c53de58d8cd97f9c5770f97b9536b727c8fc351328cfa51"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_patientId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_heartRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_spO2",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_timestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "addHealthData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x2f250ee2"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "authorizeUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x67c2a360"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "authorizedUsers",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true,
+    "signature": "0x1828983a"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_patientId",
+        "type": "string"
+      }
+    ],
+    "name": "getHealthData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "patientId",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "heartRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spO2",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "timestamp",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct HealthData.HealthRecord[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true,
+    "signature": "0x1742ba6a"
+  }
+]
